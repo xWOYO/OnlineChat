@@ -13,6 +13,7 @@ public class Server {
     PrintWriter ow = null;
     BufferedReader br = null;
     String roomId;
+    int portPool = 2200;
 
     HashMap<String, Integer> rooms = new HashMap<>();
 
@@ -43,8 +44,33 @@ public class Server {
             catch(IOException e){
                 System.out.println("Nie da się odczytać id pokoju");
             }
-            System.out.println(roomId);
+            if(rooms.containsKey(roomId)){
+                System.out.println(roomId);
+                System.out.println("room already exists");
+                ow.print(rooms.get(roomId));
+            }
+            else{
+                System.out.println(roomId);
+                System.out.println("creating a room");
+                rooms.put(roomId, portPool);
 
+                try {
+                    new groupRoom(portPool, roomId);
+                } catch (IOException e) {
+                    System.out.println("problem z utworzeniem pokoju");
+                }
+
+                ow.print(portPool);
+                portPool++;
+            }
+
+            try{
+            client.close();
+            servs.close();
+            }
+            catch (IOException e){
+                System.out.println("Problem z zamknieciem socketu");
+            }
         }
     }
 
