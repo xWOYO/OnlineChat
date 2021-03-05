@@ -49,19 +49,20 @@ public class Server {
                 System.out.println("room already exists");
                 ow.print(rooms.get(roomId));
             }
-            else{
+            else if(roomId != null){
                 System.out.println(roomId);
                 System.out.println("creating a room");
                 rooms.put(roomId, portPool);
 
                 try {
                     new groupRoom(portPool, roomId);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     System.out.println("problem z utworzeniem pokoju");
                 }
 
-                ow.print(portPool);
+                ow.println(portPool);
                 portPool++;
+
             }
 
             try{

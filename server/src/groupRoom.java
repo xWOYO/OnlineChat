@@ -15,7 +15,6 @@ public class groupRoom implements Runnable{
     public groupRoom(int a, String b){
         port = a;
         name = b;
-        run();
     }
     public void run() {
         try {
